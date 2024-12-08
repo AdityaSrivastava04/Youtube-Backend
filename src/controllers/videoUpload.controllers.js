@@ -188,17 +188,18 @@ const getAllVideo=asyncHandler(async(req,res)=>{
         throw new ApiError(404,"user name is reuired")
     }
     const findUser=await User.findOne({username})
-    console.log(findUser)
+    // console.log(findUser)
     if(!findUser){
         throw new ApiError(400,"USER does not exit")
     }
-    const findVideo=await Video.findById({owner:findUser._id})
+    const findVideo=await Video.find({owner:findUser._id})
     if(!findUser){
         throw new ApiError(400,"error while finding video")
     }
+    console.log(findVideo)
     return res
     .status(200)
-    .json(new ApiError(200,{findVideo},"All videos are"))
+    .json(new ApiResponse(200,{findVideo},"All videos are"))
 })
 export {togglePublicStatus
     ,videoUpload
